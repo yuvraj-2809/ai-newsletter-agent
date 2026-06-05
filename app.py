@@ -1,7 +1,7 @@
 import streamlit as st
 from agent import run_newsletter_agent
 
-st.title("🗞️ AI Newsletter Agent")
+st.title("AI Newsletter Agent")
 
 st.caption("Built using LangGraph + Gemini + Tavily Search")
 
