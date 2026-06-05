@@ -12,32 +12,21 @@ from langchain_community.tools.tavily_search import TavilySearchResults
 
 
 # LOAD ENV VARIABLES
-
-
 load_dotenv()
 
 
-
 # LLM SETUP
-
-
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
     google_api_key=os.getenv("GOOGLE_API_KEY")
 )
 
 
-
 # SEARCH TOOL
-
-
 search_tool = TavilySearchResults(k=3)
 
 
-
 # STATE
-
-
 class AgentState(TypedDict):
 
     goal: str
@@ -47,10 +36,7 @@ class AgentState(TypedDict):
     critique: str
 
 
-
 # NODE 1 — PLANNER
-
-
 def planner(state: AgentState):
 
     prompt = f"""
@@ -66,10 +52,7 @@ def planner(state: AgentState):
     return {"queries": queries}
 
 
-
 # NODE 2 — RESEARCHER
-
-
 def researcher(state: AgentState):
 
     all_news = ""
@@ -84,10 +67,7 @@ def researcher(state: AgentState):
     return {"content": [all_news]}
 
 
-
 # NODE 3 — WRITER
-
-
 def writer(state: AgentState):
 
     prompt = f"""
@@ -108,10 +88,7 @@ def writer(state: AgentState):
     return {"draft": response.content}
 
 
-
 # NODE 4 — REFLECTOR
-
-
 def reflector(state: AgentState):
 
     prompt = f"""
@@ -134,34 +111,18 @@ def reflector(state: AgentState):
     return {"critique": response.content}
 
 
-
 # GRAPH CONSTRUCTION
-
-
 builder = StateGraph(AgentState)
-
 builder.add_node("planner", planner)
-
 builder.add_node("researcher", researcher)
-
 builder.add_node("writer", writer)
-
 builder.add_node("reflector", reflector)
-
-
 builder.set_entry_point("planner")
-
 builder.add_edge("planner", "researcher")
-
 builder.add_edge("researcher", "writer")
-
 builder.add_edge("writer", "reflector")
-
 builder.add_edge("reflector", END)
 
 
-
 # COMPILE GRAPH
-
-
 run_newsletter_agent = builder.compile()
