@@ -10,16 +10,16 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_community.tools.tavily_search import TavilySearchResults
 
 
-# ---------------------------------------------------
+
 # LOAD ENV VARIABLES
-# ---------------------------------------------------
+
 
 load_dotenv()
 
 
-# ---------------------------------------------------
+
 # LLM SETUP
-# ---------------------------------------------------
+
 
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
@@ -27,16 +27,16 @@ llm = ChatGoogleGenerativeAI(
 )
 
 
-# ---------------------------------------------------
+
 # SEARCH TOOL
-# ---------------------------------------------------
+
 
 search_tool = TavilySearchResults(k=3)
 
 
-# ---------------------------------------------------
+
 # STATE
-# ---------------------------------------------------
+
 
 class AgentState(TypedDict):
 
@@ -47,9 +47,9 @@ class AgentState(TypedDict):
     critique: str
 
 
-# ---------------------------------------------------
+
 # NODE 1 — PLANNER
-# ---------------------------------------------------
+
 
 def planner(state: AgentState):
 
@@ -66,9 +66,9 @@ def planner(state: AgentState):
     return {"queries": queries}
 
 
-# ---------------------------------------------------
+
 # NODE 2 — RESEARCHER
-# ---------------------------------------------------
+
 
 def researcher(state: AgentState):
 
@@ -84,9 +84,9 @@ def researcher(state: AgentState):
     return {"content": [all_news]}
 
 
-# ---------------------------------------------------
+
 # NODE 3 — WRITER
-# ---------------------------------------------------
+
 
 def writer(state: AgentState):
 
@@ -108,9 +108,9 @@ def writer(state: AgentState):
     return {"draft": response.content}
 
 
-# ---------------------------------------------------
+
 # NODE 4 — REFLECTOR
-# ---------------------------------------------------
+
 
 def reflector(state: AgentState):
 
@@ -134,9 +134,9 @@ def reflector(state: AgentState):
     return {"critique": response.content}
 
 
-# ---------------------------------------------------
+
 # GRAPH CONSTRUCTION
-# ---------------------------------------------------
+
 
 builder = StateGraph(AgentState)
 
@@ -160,8 +160,8 @@ builder.add_edge("writer", "reflector")
 builder.add_edge("reflector", END)
 
 
-# ---------------------------------------------------
+
 # COMPILE GRAPH
-# ---------------------------------------------------
+
 
 run_newsletter_agent = builder.compile()
