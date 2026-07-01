@@ -36,9 +36,9 @@ if st.button("Generate Newsletter"):
     )
 
     # Save output
-    with open("newsletter_output.md", "w", encoding="utf-8") as f:
-        f.write(final_state["draft"])
-
-    st.success(
-        "Newsletter saved as newsletter_output.md"
+    st.download_button(
+        label="Download Newsletter",
+        data=final_state["draft"],
+        file_name="newsletter_output.md",
+        mime="text/markdown"
     )
