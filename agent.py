@@ -1,24 +1,18 @@
 import os
+import streamlit as st
 from typing import TypedDict, List
-
-from dotenv import load_dotenv
-
 from langgraph.graph import StateGraph, END
-
 from langchain_google_genai import ChatGoogleGenerativeAI
-
 from langchain_community.tools.tavily_search import TavilySearchResults
 
 
-
 # LOAD ENV VARIABLES
-load_dotenv()
 
 
 # LLM SETUP
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
-    google_api_key=os.getenv("GOOGLE_API_KEY")
+    google_api_key=st.secrets["GOOGLE_API_KEY"]
 )
 
 
