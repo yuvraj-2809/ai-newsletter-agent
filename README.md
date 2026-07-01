@@ -1,3 +1,5 @@
+🚀 **Live Demo:** https://ai-newsletter-agent-d9kusjpde3gbfct7qnsfpz.streamlit.app/
+
 # AI Newsletter Agent
 
 An autonomous AI agent that researches, writes, critiques, and generates newsletters about the latest AI agent news.
