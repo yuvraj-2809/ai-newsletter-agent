@@ -1,4 +1,7 @@
-🚀 **Live Demo:** https://ai-newsletter-agent-d9kusjpde3gbfct7qnsfpz.streamlit.app/
+## Live Demo
+[Try it here](https://ai-newsletter-agent-d9kusjpde3gbfct7qnsfpz.streamlit.app/)
+
+![App Screenshot](screenshot.png)
 
 # AI Newsletter Agent
 
